@@ -39,8 +39,7 @@ position_handler.new_position(30,-1,"free","off","off")
 position_handler.new_position(31,-1,"free","off","off")
 position_handler.new_position(32,-1,"free","off","off")
 
-for position in position_handler.positions:
-    print(position.id)
+
 @app.route("/")
 def index():
     return "<h1>Ruta Principal 14k</h1>"
