@@ -26,7 +26,7 @@ class Position_DAO:
                 self.free+=1
                 print("Parqueo Reservado por el usuario "+str(user)+" Libre nuevamente. ")
                 return True
-
+    '''
     #Set free the position, but verify if the user has the alarm active.
     def set_parking_free(self,id,user):
         for position in self.positions:
@@ -40,6 +40,7 @@ class Position_DAO:
                     self.free+=1
                     position.user=-1
                     position.attack="off"
+                    '''
 
 
 
@@ -76,10 +77,13 @@ class Position_DAO:
                     print("Parqueo "+str(id)+" ocupado ")
                     return True
                 elif position.state=="occupied":
-                    position.state="free"
-                    self.occupied-=1
-                    self.free+=1
-                    print("Parqueo "+str(id)+" liberado ")
+                    if position.alarm=="on":
+                        self.can_open+=1
+                    else:
+                        position.state="free"
+                        self.occupied-=1
+                        self.free+=1
+                        print("Parqueo "+str(id)+" liberado ")
 
 
                 
@@ -117,6 +121,8 @@ class Position_DAO:
         for position in self.positions:
             if position.user==user:
                 position.alarm="off"
+                if self.can_open>0:
+                    self.can_open-=1
                 return True
     
     def turn_on_the_alarm(self,user):
