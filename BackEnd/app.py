@@ -119,6 +119,10 @@ def change_parking_in_proteus():
 def get_reserveds():
     return position_handler.return_all_reserveds()
 
+@app.route('/get-alarm-status',methods=['GET'])
+def get_alarm_status():
+    return position_handler.return_alarm_sound()
+
 
 
 if __name__ == "__main__":
