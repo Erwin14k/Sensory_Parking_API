@@ -150,7 +150,7 @@ class Position_DAO:
         if self.can_open>0:
             return [0,self.suspicious]
         else:
-            return [1]
+            return [1,0]
                 
 
 
