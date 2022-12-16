@@ -75,6 +75,12 @@ class Position_DAO:
                     self.free-=1
                     print("Parqueo "+str(id)+" ocupado ")
                     return True
+                elif position.state=="occupied":
+                    position.state="free"
+                    self.occupied-=1
+                    self.free+=1
+                    print("Parqueo "+str(id)+" liberado ")
+
 
                 
 
