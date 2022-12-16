@@ -11,6 +11,7 @@ class Position_DAO:
         self.free = 32
         self.reserverd=0
         self.can_open=0
+        self.suspicious=-1
 
     #Function to create a new parking position
     def new_position(self,id,user,state,alarm,attack):
@@ -74,11 +75,13 @@ class Position_DAO:
                     position.state="occupied"
                     self.occupied+=1
                     self.free-=1
+                    self.suspicious=position.id
                     print("Parqueo "+str(id)+" ocupado ")
                     return True
                 elif position.state=="occupied":
                     if position.alarm=="on":
                         self.can_open+=1
+                        self.suspicious=position.id
                     else:
                         position.state="free"
                         self.occupied-=1
@@ -145,7 +148,7 @@ class Position_DAO:
 
     def return_alarm_sound(self):
         if self.can_open>0:
-            return [0]
+            return [0,self.suspicious]
         else:
             return [1]
                 
