@@ -123,12 +123,12 @@ class Position_DAO:
         return json.dumps([Position.dump() for Position in self.positions if Position.id <=16]) 
     def return_level_two(self):
         return json.dumps([Position.dump() for Position in self.positions if Position.id >=17]) 
-        
+
     def return_all_reserveds(self):
         final_list=[]
         for position in self.positions:
             if position.state=="reserved":
-                final_list[len(final_list)]=position.id
+                final_list.append(position.id)
         return final_list
                 
 
