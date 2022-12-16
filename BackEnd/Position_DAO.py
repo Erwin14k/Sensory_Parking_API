@@ -66,6 +66,16 @@ class Position_DAO:
                 print("Parqueo "+str(id)+" ocupado por el usuario: "+str(user))
                 return True
 
+    def verify_parking_change_in_proteus(self,id):
+        for position in self.positions:
+            if position.id==id:
+                if position.state=="free":
+                    position.state="occupied"
+                    self.occupied+=1
+                    self.free-=1
+                    print("Parqueo "+str(id)+" ocupado ")
+                    return True
+
                 
 
 
@@ -113,17 +123,14 @@ class Position_DAO:
         return json.dumps([Position.dump() for Position in self.positions if Position.id <=16]) 
     def return_level_two(self):
         return json.dumps([Position.dump() for Position in self.positions if Position.id >=17]) 
-
-    def update_arduino_data(self):
-        port=serial.Serial('COM2',9600)
-        time.sleep(1) 
-        result_string=""
+        
+    def return_all_reserveds(self):
+        final_list=[]
         for position in self.positions:
-            if position.state=="free":
-                result_string+=str(position.id)+"-v,"
-            elif  position.state=="reserved":
-                result_string+=str(position.id)+"-a"
-            elif  position.state=="occupied":
-                result_string+=str(position.id)+"-r"
-        port.write(result_string.encode("utf-8"))
+            if position.state=="reserved":
+                final_list[len(final_list)]=position.id
+        return final_list
+                
+
+
 

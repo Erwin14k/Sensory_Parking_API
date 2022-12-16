@@ -108,6 +108,17 @@ def on():
     position_handler.turn_on_the_alarm(int(user))
     return response
 
+@app.route('/change-parking-proteus',methods=['POST'])
+def change_parking_in_proteus():
+    response={}
+    id=request.json['id']
+    position_handler.verify_parking_change_in_proteus(int(id))
+    return response
+
+@app.route('/get-all-reserved',methods=['GET'])
+def get_reserveds():
+    return position_handler.return_all_reserveds()
+
 
 
 if __name__ == "__main__":
